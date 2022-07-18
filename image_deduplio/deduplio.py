@@ -68,16 +68,11 @@ class DeduplioApp():
         return filedialog.askdirectory()
 
     def download_image(self, path, search_term, resolution, postfix):
-        response = requests.get(
-                f"https://source.unsplash.com/random/{resolution}/?"
-                + str(search_term) + ", allow_redirects=True")
-        print(
-                f"Download file and saving to: {path}"
-                + str(search_term) + "_" + str(postfix) + ".jpg")
-        open(
-                f"{path}"
-                + str(search_term) + "_"
-                + str(postfix) + ".jpg", 'wb').write(response.content)
+        response = requests.get(f"https://source.unsplash.com/random/{resolution}/?{search_term}, allow_redirects=True")
+        print(f"Download file and saving to: {path}{search_term}_{str(postfix)}.jpg")
+        with open(f"{path}{search_term}_{postfix}.jpg", 'wb') as f:
+            f.write(response.content)
+
 
     def generate_fake_duplicates(self, path, amount):
         img_files = list(filter(lambda x: 'jpg' in x, os.listdir(path)))
@@ -163,8 +158,6 @@ class DeduplioApp():
         '''Ask user to delete one duplication file.'''
         answer = ''
         delete_counter = 0
-        if not files:
-            return
         for img_1_path, img_2_path in files:
             if answer == 'q':
                 break
@@ -183,6 +176,21 @@ class DeduplioApp():
                     'Type "q" to exit\n',
                     )
                 answer = input('Enter here: ')
+                print(f"file name {answer}")
+                img_1.close()
+                img_2.close()
+
+                # answer = f"img_{answer}_path"
+                # try:
+                #     os.remove(answer)
+                #     for name in files:
+                #         if answer in name:
+                #             files.remove(name)
+                #     delete_counter += 1
+                #     print(f'\nFile {img_1_path} was DELETE\n')
+                # except FileNotFoundError:
+                #     print('File not found')
+
                 if answer == '1':
                     try:
                         os.remove(img_1_path)
@@ -201,10 +209,12 @@ class DeduplioApp():
                                 files.remove(name)
                         delete_counter += 1
                         print(f'\nFile {img_2_path} was DELETE\n')
+
                     except FileNotFoundError:
                         print('File not found')
                 if answer == 'c':
-                    call('clear' if os.name == 'posix' else 'cls')
+                    continue
+                    # call('clear' if os.name == 'posix' else 'cls')
                 if answer == 'q':
                     call('clear' if os.name == 'posix' else 'cls')
                     break
