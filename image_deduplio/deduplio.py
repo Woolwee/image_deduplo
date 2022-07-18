@@ -179,18 +179,6 @@ class DeduplioApp():
                 print(f"file name {answer}")
                 img_1.close()
                 img_2.close()
-
-                # answer = f"img_{answer}_path"
-                # try:
-                #     os.remove(answer)
-                #     for name in files:
-                #         if answer in name:
-                #             files.remove(name)
-                #     delete_counter += 1
-                #     print(f'\nFile {img_1_path} was DELETE\n')
-                # except FileNotFoundError:
-                #     print('File not found')
-
                 if answer == '1':
                     try:
                         os.remove(img_1_path)
