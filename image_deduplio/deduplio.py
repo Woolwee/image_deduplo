@@ -176,7 +176,6 @@ class DeduplioApp():
                     'Type "q" to exit\n',
                     )
                 answer = input('Enter here: ')
-                print(f"file name {answer}")
                 img_1.close()
                 img_2.close()
                 if answer == '1':
@@ -202,7 +201,6 @@ class DeduplioApp():
                         print('File not found')
                 if answer == 'c':
                     continue
-                    # call('clear' if os.name == 'posix' else 'cls')
                 if answer == 'q':
                     call('clear' if os.name == 'posix' else 'cls')
                     break
