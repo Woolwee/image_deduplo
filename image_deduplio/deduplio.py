@@ -202,7 +202,6 @@ class DeduplioApp():
                 if answer == 'c':
                     continue
                 if answer == 'q':
-                    call('clear' if os.name == 'posix' else 'cls')
                     break
         print(f'\nCongratulations! you delete {delete_counter} files!')
         print('Thanks for using this program.\nBye dear user!')
